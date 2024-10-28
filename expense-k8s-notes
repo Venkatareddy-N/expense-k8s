@@ -122,5 +122,19 @@ kubectl apply -f manifest.yaml
 
 kubectl get pods -n expense  --> this application in expense namespace need to give -n to check
 
-
 kubectl get services -n expense --> to see services
+
+kubectl logs backend-7b97d64b9f-nw5hp -n expense
+
+namespace setup
+==============
+everytime we are giving namespace, to skip that do below.
+sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx
+sudo ln -s /opt/kubectx/kubectx /usr/local/bin/kubectx
+sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens
+
+to set the namespace
+
+kubens expense
+
+kubectl get pods --> now no need to give -n expense
