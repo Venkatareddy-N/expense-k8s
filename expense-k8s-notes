@@ -1,0 +1,12 @@
+1. need to create namespace expense
+
+apiVersion: v1
+kind: Namespace
+metadata: 
+  name: expense
+  labels:
+    project: expense
+    environment: dev
+
+--------------------
+
