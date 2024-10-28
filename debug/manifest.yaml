@@ -5,6 +5,5 @@ metadata:
   namespace: expense
 spec:
   containers:
-  # docker run -d --name nginx nginx
   - name: debug
     image: venkat2607/debug:1.0
