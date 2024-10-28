@@ -10,3 +10,65 @@ metadata:
 
 --------------------
 
+2. Create mysql
+================
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: expense
+  labels:
+    app: mysql
+    tier: db
+    project: expense
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+      tier: db
+      project: expense
+  template:
+    metadata:
+      labels:
+        app: mysql
+        tier: db
+        project: expense
+    spec:
+      containers:
+      - name: mysql
+        image: venkat2607/mysql:1.0
+--- 
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysql
+  namespace: expense
+spec:
+  selector:
+    app: mysql
+    tier: db
+    project: expense
+  ports:
+  - name: mysql-port
+    protocol: TCP
+    port: 3306 #service port
+    targetPort: 3306 #container port
+
+# service is mandiatory to connect someone to access mysql
+
+kubectl apply -f manifest.yaml
+
+kubectl get pods -n expense  --> this application in expense namespace need to give -n to check
+
+kubectl exec -it mysql-776c74c857-shzp2 -n expense -- bash --> to enter inside mysql pod
+
+mysql -u root -pExpenseApp@1  --> to connect my sql
+
+show databases;
+
+=============
+
+3. Backend
+========
