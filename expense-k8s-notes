@@ -68,7 +68,59 @@ mysql -u root -pExpenseApp@1  --> to connect my sql
 
 show databases;
 
+kubectl get services -n expense --> to see services
+
 =============
 
 3. Backend
 ========
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: expense
+  labels:
+    app: backend
+    tier: app
+    project: expense
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+      tier: app
+      project: expense
+  template:
+    metadata:
+      labels:
+        app: backend
+        tier: app
+        project: expense
+    spec:
+      containers:
+      - name: backend
+        image: venkat2607/backend:1.0
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: backend
+  namespace: expense
+spec:
+  selector:
+    app: backend
+    tier: app
+    project: expense
+  ports:
+  - name: backend-port
+    protocol: TCP
+    port: 8080 #service port
+    targetPort: 8080 #container port
+
+
+kubectl apply -f manifest.yaml
+
+kubectl get pods -n expense  --> this application in expense namespace need to give -n to check
+
+
+kubectl get services -n expense --> to see services
