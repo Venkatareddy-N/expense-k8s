@@ -138,3 +138,58 @@ to set the namespace
 kubens expense
 
 kubectl get pods --> now no need to give -n expense
+
+====================================================
+
+4.Frotend
+=========
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: expense
+  labels:
+    app: frontend
+    tier: web
+    project: expense
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend
+      tier: web
+      project: expense
+  template:
+    metadata:
+      labels:
+        app: frontend
+        tier: web
+        project: expense
+    spec:
+      containers:
+      - name: frontend
+        image: venkat2607/frontend:1.0
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: frontend
+  namespace: expense
+spec:
+  type: LoadBalancer
+  selector:
+    app: frontend
+    tier: web
+    project: expense
+  ports:
+  - name: frontend-port
+    protocol: TCP
+    port: 80 # service port
+    targetPort: 80 # container port
+
+
+kubectl apply -f manifest.yaml
+
+kubectl get service
+
+frontend external ip : a56aaa54637e64815987ace0aaa2d0b1-817232553.us-east-1.elb.amazonaws.com  --> wait few minutes to load loadbalancer target instnces to worl
