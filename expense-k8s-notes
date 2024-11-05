@@ -193,3 +193,9 @@ kubectl apply -f manifest.yaml
 kubectl get service
 
 frontend external ip : a56aaa54637e64815987ace0aaa2d0b1-817232553.us-east-1.elb.amazonaws.com  --> wait few minutes to load loadbalancer target instnces to worl
+
+
+to increate the load on server
+
+ab -k -c 500 -n 2000 -s 2000 http://a0fda9ea8421241b1835a5c56547dd1e-990469938.us-east-1.elb.amazonaws.com:80/
+
