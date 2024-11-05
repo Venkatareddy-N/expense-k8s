@@ -16,7 +16,7 @@ metadata:
     tier: app
     project: expense
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: backend
@@ -69,6 +69,6 @@ spec:
    apiVersion: apps/v1
    kind: Deployment
    name: backend
- minReplicas: 2
+ minReplicas: 1
  maxReplicas: 6
  targetCPUUtilizationPercentage: 10 # once cup reached 10% it will create new pod automatically
